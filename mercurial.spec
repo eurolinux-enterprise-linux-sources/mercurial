@@ -3,13 +3,15 @@
 Summary: A fast, lightweight distributed source control management system 
 Name: mercurial
 Version: 1.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 Group: Development/Tools
 URL: http://www.selenic.com/mercurial/
 Source0: http://www.selenic.com/mercurial/release/%{name}-%{version}.tar.gz
 Source1: mercurial-site-start.el
 Patch0:  mercurial-1.4-env.patch
+Patch1:  mercurial-1.4-copy.patch
+Patch2:  mercurial-1.4-super.patch
 # temporary fix for filemerge bug
 #Patch0: mercurial-mergetools.hgrc.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -81,6 +83,8 @@ documentation.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 make all
@@ -164,13 +168,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0644,root,root )%{emacs_lispdir}/*.el
 
 %files hgk -f %{name}-hgk.files
-%attr(0644,root,root) %{_libexecdir}/mercurial/
+%attr(0755,root,root) %{_libexecdir}/mercurial/
 %attr(0644,root,root) %{_sysconfdir}/mercurial/hgrc.d/hgk.rc
 
 ##%%check
 ##cd tests && %{__python} run-tests.py
 
 %changelog
+* Fri May 15 2015 Petr Stodulka <pstodulk@redhat.com> - 1.4-4
+- Fixed troubles with SSl connection
+- Fixed adding of broken symlink when 'copy -A'
+- Fixed permissions for */hgk - Thanks to Dave Johanse <davejohansen@gmail.com>
+  Resolves: #784079 #928301 #1006457
+
 * Fri Mar 12 2010 Jan Zeleny <jzeleny@redhat.com> - 1.4-3
 - replaced instances of #!/usr/bin/env python with #!/usr/bin/python
   Fixed: #528797
