@@ -3,7 +3,7 @@
 Summary: A fast, lightweight distributed source control management system 
 Name: mercurial
 Version: 1.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2
 Group: Development/Tools
 URL: http://www.selenic.com/mercurial/
@@ -12,6 +12,10 @@ Source1: mercurial-site-start.el
 Patch0:  mercurial-1.4-env.patch
 Patch1:  mercurial-1.4-copy.patch
 Patch2:  mercurial-1.4-super.patch
+
+# CVEs
+Patch3:  mercurial-cve-2017-9462.patch
+
 # temporary fix for filemerge bug
 #Patch0: mercurial-mergetools.hgrc.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -85,6 +89,7 @@ documentation.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 make all
@@ -175,6 +180,9 @@ rm -rf $RPM_BUILD_ROOT
 ##cd tests && %{__python} run-tests.py
 
 %changelog
+* Thu Jun 15 2017 Petr Stodulka <pstodulk@redhat.com> - 1.4-5
+- Fixes CVE-2017-9462
+
 * Fri May 15 2015 Petr Stodulka <pstodulk@redhat.com> - 1.4-4
 - Fixed troubles with SSl connection
 - Fixed adding of broken symlink when 'copy -A'
