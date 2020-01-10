@@ -3,7 +3,7 @@
 Summary: Mercurial -- a distributed SCM
 Name: mercurial
 Version: 2.6.2
-Release: 4%{?dist}
+Release: 6%{?dist}
 #Release: 1.rc1%{?dist}
 
 #%define upstreamversion %{version}-rc
@@ -19,6 +19,11 @@ Patch0: mercurial-i18n.patch
 #Patch1: docutils-0.8.patch
 #Make hg-ssh's shebang pathname absolute (#987029)
 Patch2: mercurial-absolute-shebang.patch
+
+Patch3: mercurial-cve-2016-3068.patch
+Patch4: mercurial-cve-2016-3069.patch
+
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: python python-devel
 BuildRequires: emacs-nox emacs-el pkgconfig gettext python-docutils
@@ -89,6 +94,8 @@ documentation.
 %patch0 -p0
 #%patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 make all
@@ -195,6 +202,12 @@ rm -rf $RPM_BUILD_ROOT
 ##cd tests && %{__python} run-tests.py
 
 %changelog
+* Thu Apr 14 2016 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-6
+- fix previous patch for CVE-2016-3069
+
+* Thu Apr 14 2016 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-5
+- Fix CVE-2016-3068 and CVE-2016-3069
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.6.2-4
 - Mass rebuild 2014-01-24
 
