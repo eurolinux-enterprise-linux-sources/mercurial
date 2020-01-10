@@ -3,7 +3,7 @@
 Summary: Mercurial -- a distributed SCM
 Name: mercurial
 Version: 2.6.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 #Release: 1.rc1%{?dist}
 
 #%define upstreamversion %{version}-rc
@@ -23,6 +23,7 @@ Patch2: mercurial-absolute-shebang.patch
 Patch3: mercurial-cve-2016-3068.patch
 Patch4: mercurial-cve-2016-3069.patch
 Patch5: mercurial-cve-2017-9462.patch
+Patch6: mercurial-cve-2017-1000115-1000116.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: python python-devel
@@ -97,6 +98,7 @@ documentation.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 make all
@@ -203,6 +205,9 @@ rm -rf $RPM_BUILD_ROOT
 ##cd tests && %{__python} run-tests.py
 
 %changelog
+* Tue Aug 15 2017 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-8
+- Fix CVE-2017-1000115 and CVE-2017-1000116
+
 * Thu Jun 15 2017 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-7
 - Fix CVE-2017-9462
 
