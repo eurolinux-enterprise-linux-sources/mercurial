@@ -1,0 +1,9 @@
+diff -up mercurial-2.6.2/contrib/hg-ssh.orig mercurial-2.6.2/contrib/hg-ssh
+--- mercurial-2.6.2/contrib/hg-ssh.orig	2013-10-04 14:15:08.788982260 +0200
++++ mercurial-2.6.2/contrib/hg-ssh	2013-10-04 14:15:21.073976997 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ #
+ # Copyright 2005-2007 by Intevation GmbH <intevation@intevation.de>
+ #
