@@ -3,7 +3,7 @@
 Summary: Mercurial -- a distributed SCM
 Name: mercurial
 Version: 2.6.2
-Release: 10%{?dist}
+Release: 4%{?dist}
 #Release: 1.rc1%{?dist}
 
 #%define upstreamversion %{version}-rc
@@ -19,14 +19,6 @@ Patch0: mercurial-i18n.patch
 #Patch1: docutils-0.8.patch
 #Make hg-ssh's shebang pathname absolute (#987029)
 Patch2: mercurial-absolute-shebang.patch
-
-Patch3: mercurial-cve-2016-3068.patch
-Patch4: mercurial-cve-2016-3069.patch
-Patch5: mercurial-cve-2017-9462.patch
-Patch6: mercurial-cve-2017-1000115-1000116.patch
-Patch7: mercurial-cve-2018-1000132.patch
-Patch8: mercurial-cve-2018-13346-cve-2018-13347.patch
-
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: python python-devel
 BuildRequires: emacs-nox emacs-el pkgconfig gettext python-docutils
@@ -97,12 +89,6 @@ documentation.
 %patch0 -p0
 #%patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
 
 %build
 make all
@@ -205,30 +191,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libexecdir}/mercurial/
 %{_sysconfdir}/mercurial/hgrc.d/hgk.rc
 
-#%%check
-#cd tests && %%{__python} run-tests.py
+##%%check
+##cd tests && %{__python} run-tests.py
 
 %changelog
-* Tue May 07 2019 Marcel Plch <mplch@redhat.com> - 2.6.2-10
-- Add missing hunk for CVE-2018-13347 patch
-- Related: CVE-2018-13347
-
-* Wed Mar 20 2019 Marcel Plch <mplch@redhat.com> - 2.6.2-9
-- Fix various CVE's
-- Resolves: CVE-2018-1000132 CVE-2018-13346 CVE-2018-13347
-
-* Tue Aug 15 2017 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-8
-- Fix CVE-2017-1000115 and CVE-2017-1000116
-
-* Thu Jun 15 2017 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-7
-- Fix CVE-2017-9462
-
-* Thu Apr 14 2016 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-6
-- fix previous patch for CVE-2016-3069
-
-* Thu Apr 14 2016 Petr Stodulka <pstodulk@redhat.com> - 2.6.2-5
-- Fix CVE-2016-3068 and CVE-2016-3069
-
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.6.2-4
 - Mass rebuild 2014-01-24
 
